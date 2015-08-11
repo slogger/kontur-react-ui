@@ -1,0 +1,68 @@
+:local {
+  @day-side: 25px;
+
+  .root {
+    background: #fff;
+    border-radius: 0 0 2px 2px;
+    height: 220px;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    width: 220px;
+    z-index: 900;
+  }
+
+  .mask {
+    bottom: 0;
+    box-shadow: inset 0 5px 6px -5px rgba(0, 0, 0, .2);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .grey {
+    background: #f1f1f1;
+  }
+
+  .month {
+    box-sizing: border-box;
+    font-size: 12px;
+    left: @day-side * 7;
+    overflow: hidden;
+    padding: 6px 0 0 0;
+    position: absolute;
+    text-align: center;
+    width: 45px;
+  }
+
+  .year {
+    color: #888;
+  }
+
+  .cell {
+    position: absolute;
+  }
+
+  .cellInner {
+    border-radius: 2px;
+    font-size: 11px;
+    height: @day-side;
+    line-height: @day-side;
+    text-align: center;
+    width: @day-side;
+  }
+
+  .cellActive .cellInner {
+    background: #ddd;
+  }
+
+  .cellCurrent .cellInner {
+    background: #808080;
+    color: #fff;
+  }
+
+  .cellHoly {
+    color: #c22;
+  }
+}
