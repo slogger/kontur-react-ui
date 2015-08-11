@@ -169,6 +169,9 @@ var MAP = {
 
 var Icon = React.createClass({
   statics: {
+    charsByName : function(){
+        return MAP; // TODO: return clone.
+    },
     getAllNames() {
       return Object.keys(MAP);
     }

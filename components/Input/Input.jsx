@@ -94,16 +94,18 @@ var Input = React.createClass({
       );
     }
 
-    const inputProps = filterProps(this.props, INPUT_PASS_PROPS);
+    const inputProps = this.props;
     inputProps.style = {};
 
     if (this.props.align) {
       inputProps.style.textAlign = this.props.align;
     }
-
+    var className = cx('input');
+    if (this.props.className)
+        className += ' ' + this.props.className;
     return (
       <label {...labelProps}>
-        <input className={cx('input')} {...inputProps} value={this.state.value}
+        <input {...inputProps} className={className}  value={this.state.value}
             onChange={e => this.handleChange(e)} />
         {placeholder}
         {leftIcon}
