@@ -66,7 +66,7 @@ const Tooltip = React.createClass({
   },
 
   handleMouseLeave() {
-    this.setState({opened: false});
+    this.setState({opened: true});
   },
 });
 
