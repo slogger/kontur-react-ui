@@ -4,7 +4,7 @@ const PropTypes = React.PropTypes;
 
 import styles from './Box.less';
 
-var Tooltip = React.createClass({
+var TooltipBox = React.createClass({
 
   render() {
     var pinSize = 10;
@@ -79,4 +79,4 @@ var Tooltip = React.createClass({
   }
 });
 
-module.exports = Tooltip;
+module.exports = TooltipBox;
