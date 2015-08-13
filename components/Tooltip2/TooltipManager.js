@@ -6,7 +6,7 @@ var FlowPanelManager = require("../FlowPanelManager");
 var DomUtils = require("../FlowPanelManager/domUtils");
 var TooltipBox = require("./TooltipBox.jsx");
 
-var offset = 0;
+var offset = 7;
 var vPadding = 3;
 var hPadding = 5;
 var pinHeight = 8;
@@ -71,8 +71,7 @@ var calculators  = {
         };
     },
 
-    'right-top' : function(cfg) {
-        console.log(cfg);
+    'left-top' : function(cfg) {
         return {
             left: cfg.targetRect.left - cfg.contentSize.width  -pinHeight - hPadding*2 - offset,
             top: cfg.targetRect.top ,
@@ -81,18 +80,16 @@ var calculators  = {
         };
     },
 
-    'right-middle' : function(cfg) {
-        console.log(cfg);
+    'left-middle' : function(cfg) {
         return {
             left: cfg.targetRect.left - cfg.contentSize.width  -pinHeight - hPadding*2 - offset,
             top: cfg.targetRect.top + cfg.targetRect.height/2- cfg.contentSize.height/2 - vPadding/2,
             pos : 'right',
-            offset: cfg.contentSize.width/2-pinWidth
+            offset: cfg.contentSize.height/2-pinWidth/2
         };
     },
 
-    'right-bottom' : function(cfg) {
-        console.log(cfg);
+    'left-bottom' : function(cfg) {
         return {
             left: cfg.targetRect.left - cfg.contentSize.width  -pinHeight - hPadding*2 - offset,
             top: cfg.targetRect.top + cfg.targetRect.height - cfg.contentSize.height - vPadding*2,
@@ -101,8 +98,7 @@ var calculators  = {
         };
     },
 
-    'left-top' : function(cfg) {
-        console.log(cfg);
+    'right-top' : function(cfg) {
         return {
             left: cfg.targetRect.left +  cfg.targetRect.width + pinHeight + offset,
             top: cfg.targetRect.top,
@@ -111,18 +107,16 @@ var calculators  = {
         };
     },
 
-    'left-middle' : function(cfg) {
-        console.log(cfg);
+    'right-middle' : function(cfg) {
         return {
             left: cfg.targetRect.left +  cfg.targetRect.width + pinHeight + offset,
             top: cfg.targetRect.top + cfg.targetRect.height/2 - cfg.contentSize.height/2 - vPadding,
-            offset: cfg.contentSize.width/2-pinWidth,
+            offset: cfg.contentSize.height/2-pinWidth/2,
             pos : 'left'
         };
     },
 
-    'left-bottom' : function(cfg) {
-        console.log(cfg);
+    'right-bottom' : function(cfg) {
         return {
             left: cfg.targetRect.left +  cfg.targetRect.width + pinHeight + offset,
             top: cfg.targetRect.top + cfg.targetRect.height - cfg.contentSize.height - vPadding*2,
@@ -133,10 +127,11 @@ var calculators  = {
 };
 
 
-
+///
+/// createTooltip :
 function createTooltip(cfg){
     var panel = FlowPanelManager.createPanel({
-        target : target,
+        target : cfg.target,
         render : cfg.render,
         pos : cfg.pos || 'top-center', // {top|middle|bottom}-{left|right|center}
 
@@ -152,9 +147,35 @@ function createTooltip(cfg){
             });
         },
 
-        getPosition : function(cfg){ return calculators[this.pos].call(this, cfg);},
+        getPosition : function(cfg){
+            var posList = this.getAlternativePositions(this.pos);
+            var result;
+            for (var i = 0; i < posList.length; i++) {
+                var result = calculators[posList[i]].call(this, cfg);
+                var resultIsOk = (
+                    result.left>=0 &&
+                    result.top >=0 &&
+                    result.left + cfg.contentSize.width + hPadding*2 < window.innerWidth &&
+                    result.top + cfg.contentSize.height + vPadding*2< window.innerHeight
+                );
+                if (resultIsOk)
+                    return result;
+            }
+            return calculators[posList[0]].call(this, cfg);
+        },
 
-        __findBest : function(){
+        getAlternativePositions : function(pos) {
+            var s1 = pos.split('-')[0];
+            var s2 = pos.split('-')[1];
+            if (s1=="top")
+                return ["top-" + s2, "bottom-" + s2];
+            if (s1=="bottom")
+                return ["bottom-" + s2, "top-" + s2];
+            if (s1=="left")
+                return ["left-" + s2, "right-" + s2];
+            if (s1=="right")
+                return ["right-" + s2, "left-" + s2];
+            throw "Unsupported pos " + pos;
         }
     });
     return panel;

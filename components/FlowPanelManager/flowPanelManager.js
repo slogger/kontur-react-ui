@@ -24,17 +24,21 @@ function updatePanels(){
 
 DomUtils.addEventListener(window, 'scroll', updatePanels);
 DomUtils.addEventListener(window, 'resize', updatePanels);
-
+DomUtils.ready(updatePanels);
+var zIndex = 1000;
+var genZIndex = function(){
+    return ++zIndex;
+};
 
 Panel.prototype = {
     show : function(){
-        if (this.visible)
+        if (this.visible) {
             return;
+        }
         this.visible = true;
-
-        if (!this.contentWrap)
+        if (!this.contentWrap) {
             this.contentWrap = appendReactToBody(this.render()).wrap;
-
+        }
         if (!this.panelAppendResult) {
             var layoutCfg = this.getLayout();
             this.position = this.getPosition(layoutCfg);
@@ -43,8 +47,11 @@ Panel.prototype = {
             this.contentWrap.style.visibility = '';
             this.contentWrap.style.position = '';
             this.panelAppendResult.rendered.refs.childrenContainer.getDOMNode().appendChild(this.contentWrap);
+            this.panelAppendResult.wrap.style.zIndex = genZIndex();
+
         }
         this.animateAppear(this.panelAppendResult.wrap, this.position);
+        updatePanels();
     },
 
     updatePosition : function(){
@@ -114,5 +121,6 @@ var createPanel = function(cfg){
 
 
 module.exports = {
-    createPanel : createPanel
+    createPanel : createPanel,
+    updatePanels : updatePanels
 };

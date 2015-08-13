@@ -3,6 +3,18 @@
  */
 
 module.exports = {
+     ready : function(fn) {
+         if (document.readyState != 'loading') {
+             fn();
+         } else if (document.addEventListener) {
+             document.addEventListener('DOMContentLoaded', fn);
+         } else {
+             document.attachEvent('onreadystatechange', function () {
+                 if (document.readyState != 'loading')
+                     fn();
+             });
+         }
+     },
 
     addEventListener : function(el, eventName, handler) {
         if (el.addEventListener) {
@@ -47,7 +59,7 @@ module.exports = {
         var wrap = document.createElement("div");
         wrap.style.display = 'block';
         wrap.style.position = 'absolute';
-        wrap.style.visibility = 'hidden';
+        //wrap.style.visibility = 'hidden';
         document.body.appendChild(wrap);
         var rendered = React.render(reactComponent, wrap);
         return {
