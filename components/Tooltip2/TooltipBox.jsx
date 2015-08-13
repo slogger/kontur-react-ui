@@ -5,10 +5,18 @@ const PropTypes = React.PropTypes;
 import styles from './Box.less';
 
 var TooltipBox = React.createClass({
+  pos : 'top',
+
+  getInitialState : function(){
+     return {
+        offset : this.props.offset || 10,
+        pos : this.props.pos || 'top'
+     }
+  },
 
   render() {
     var pinSize = 10;
-    var offset = 10;
+    var offset = this.state.offset;
 
     var box = {
       position : 'relative'
@@ -22,12 +30,14 @@ var TooltipBox = React.createClass({
       border: pinSize + 'px solid #fff',
     };
 
-    var leftSettings = { hiddenBorders : [0,2,3], position:["+offset",null,null,-1], zeroBorder: "borderLeft"};
-    var topSettings = { hiddenBorders : [0,1,3], position:[-1,null,null,"+offset"], zeroBorder: "borderTop"};
-    var rightSettings = { hiddenBorders : [0,1,2], position:["+offset",-1,null,null], zeroBorder: "borderRight"};
-    var bottomSettings = { hiddenBorders : [1,2,3], position:[null,null,-1,"+offset"], zeroBorder: "borderBottom"};
+    var settingsList = {
+      left : { hiddenBorders : [0,2,3], position:["+offset",null,null,-1], zeroBorder: "borderLeft"},
+      top : { hiddenBorders : [0,1,3], position:[-1,null,null,"+offset"], zeroBorder: "borderTop"},
+      right : { hiddenBorders : [0,1,2], position:["+offset",-1,null,null], zeroBorder: "borderRight"},
+      bottom : { hiddenBorders : [1,2,3], position:[null,null,-1,"+offset"], zeroBorder: "borderBottom"}
+    };
 
-    var pinSettings = rightSettings;
+    var pinSettings = settingsList[this.state.pos];
 
     var borderNames = ['borderTopColor','borderRightColor','borderBottomColor','borderLeftColor'];
     var positions = ['top','right','bottom','left'];
@@ -73,7 +83,9 @@ var TooltipBox = React.createClass({
           <div className={styles.inner}>
             <div style={pin} ></div>
             <div style={pinInner} ></div>
-            {this.props.children}
+            <div ref='childrenContainer'>
+              {this.props.children}
+            </div>
           </div>
         </div>);
   }
