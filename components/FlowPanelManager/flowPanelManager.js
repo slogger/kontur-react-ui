@@ -37,7 +37,9 @@ Panel.prototype = {
         }
         this.visible = true;
         if (!this.contentWrap) {
-            this.contentWrap = appendReactToBody(this.render()).wrap;
+            var appendReactToBodyResult = appendReactToBody(this.render());
+            this.contentWrap = appendReactToBodyResult.wrap;
+            this.content = appendReactToBodyResult.rendered;
         }
         if (!this.panelAppendResult) {
             var layoutCfg = this.getLayout();

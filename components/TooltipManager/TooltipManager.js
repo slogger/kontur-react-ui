@@ -127,8 +127,6 @@ var calculators  = {
 };
 
 
-///
-/// createTooltip :
 function createTooltip(cfg){
     var panel = FlowPanelManager.createPanel({
         target : cfg.target,
