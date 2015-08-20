@@ -6,12 +6,12 @@ var FlowPanelManager = require("../FlowPanelManager");
 var DomUtils = require("../FlowPanelManager/domUtils");
 var TooltipBox = require("./TooltipBox.jsx");
 
-var offset = 7;
+var offset = 4;
 var vPadding = 3;
 var hPadding = 5;
 var pinHeight = 8;
-var pinWidth = 10;
-var pinOffset = 10;
+var pinWidth = 8;
+var pinOffset = 6;
 
 var calculators  = {
     'top-left' : function(cfg) {

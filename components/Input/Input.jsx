@@ -18,6 +18,7 @@ const INPUT_PASS_PROPS = {
   maxLength: true,
   placeholder: true,
 
+  onFocus: true,
   onBlur: true,
   onKeyDown: true,
 };

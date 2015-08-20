@@ -112,6 +112,16 @@ Panel.prototype = {
             left: cfg.targetRect.left,
             top : cfg.targetRect.top - cfg.contentSize.height
         };
+    },
+
+    dispose : function(){
+        React.unmountComponentAtNode(this.contentWrap);
+        var panelDom = this.panelAppendResult.wrap;
+        React.unmountComponentAtNode(panelDom);
+        panelDom.parentNode.removeChild(panelDom);
+
+        panels = _.reject(panels, (x)=>{ return x==this});
+        console.log(panels.length);
     }
 };
 

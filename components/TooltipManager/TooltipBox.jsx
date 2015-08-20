@@ -15,7 +15,7 @@ var TooltipBox = React.createClass({
   },
 
   render() {
-    var pinSize = 10;
+    var pinSize = 8;
     var offset = this.state.offset;
 
     var box = {
@@ -41,7 +41,6 @@ var TooltipBox = React.createClass({
 
     var borderNames = ['borderTopColor','borderRightColor','borderBottomColor','borderLeftColor'];
     var positions = ['top','right','bottom','left'];
-
     for (var i = 0; i < borderNames.length; i++) {
       var border = borderNames[i];
       pin[border] = '#ccc';
@@ -82,14 +81,14 @@ var TooltipBox = React.createClass({
       pin[pos] = pinVal;
       pinInner[pos] = pinInnerVal;
     }
-    //pin[pinSettings.zeroBorder] = 0;
-    //pinInner[pinSettings.zeroBorder] = 0;
+    var container = {};
+
     return (
         <div style={box}>
           <div className={styles.inner}>
             <div style={pin} ></div>
             <div style={pinInner}  ></div>
-            <div ref='childrenContainer'>
+            <div ref='childrenContainer' style={container}>
               {this.props.children}
             </div>
           </div>
