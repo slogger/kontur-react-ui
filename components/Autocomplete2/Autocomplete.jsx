@@ -3,7 +3,7 @@ var PropTypes = React.PropTypes;
 var Input = require('../Input');
 require('./Autocomplete.less');
 var AutocompleteMenu = require('./AutocompleteMenu');
-var FlowPanelManager = require('../FlowPanelManager');
+var FloatPanelManager = require('../FloatPanelManager');
 var DomUtils = require('../FlowPanelManager/domUtils');
 var cx = require('../cx')('RTAutocomplete');
 var _ = require('underscore');
@@ -19,7 +19,8 @@ var Autocomplete = React.createClass({
       onKeyDown: e => this._handleKey(e),
       onBlur: e => this._handleBlur(e)
     };
-    return <Input {...this.props} {...inputProps} ref="input" />;
+    return <Input {...this.props} {...inputProps} ref="input"/>;
+
   },
 
   componentWillUnmount(){
@@ -130,15 +131,15 @@ var Autocomplete = React.createClass({
   },
 
   _createMenu : function(){
-    var input = this.refs.input.refs.input.getDOMNode(); // TODO move to func
+    var input = this.refs.input.refs.input.getDOMNode();
     var displayField = this.props.displayField;
     var width = DomUtils.outerWidth(input);
     var onItemSelect = this._onItemSelect;
     var renderItem = this._renderItem;
 
-    return FlowPanelManager.createPanel({
+    return FloatPanelManager.createPanel({
       render: function () { return <AutocompleteMenu items={[]} minWidth={width} renderItem={renderItem} onItemSelect={onItemSelect}/>},
-      target: input,
+      target: ()=>this.refs.input.refs.input.getDOMNode(),
       getPosition : function(cfg){
         return {
           left: cfg.targetRect.left,
@@ -147,8 +148,6 @@ var Autocomplete = React.createClass({
       }
     });
   },
-
-
 
   _triggerOnChange : function(currentValue, items){
      if (!this.props.onChange)

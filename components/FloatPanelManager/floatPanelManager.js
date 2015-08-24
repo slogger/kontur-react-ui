@@ -24,32 +24,8 @@ function updatePanels(){
 
 DomUtils.addEventListener(window, 'scroll', updatePanels);
 DomUtils.addEventListener(window, 'resize', updatePanels);
-DomUtils.ready(function(){
-    DomUtils.addEventListener(document.body, 'click', onBodyClick);
-});
-
-function onBodyClick(e) {
-    if (!isPanel(e.target))
-        _.each(panels, function (p) {
-            if (p.autoHide)
-                p.hide();
-        });
-   //  if (e.target.className.indexOf("floatPanel"))
-};
-function isPanel(el) {
-    while(true){
-        if (!el)
-            return false;
-        if (el.className && el.className.indexOf("autoHidePanel")>=0)
-            return true;
-        el = el.parentNode;
-    }
-}
-
-
-
-
 DomUtils.ready(updatePanels);
+
 var zIndex = 1000;
 var genZIndex = function(){
     return ++zIndex;
@@ -77,7 +53,6 @@ Panel.prototype = {
             this.panelAppendResult.wrap.style.zIndex = genZIndex();
             if (this.autoHide)
                 this.panelAppendResult.wrap.className += "autoHidePanel";
-
         }
         this.animateAppear(this.panelAppendResult.wrap, this.position);
         updatePanels();
@@ -95,13 +70,17 @@ Panel.prototype = {
     },
 
     getLayout : function(){
-        var topLeft = DomUtils.getWindowPosition(this.target);
+        var target = this.target;
+        if (typeof(target)=="function")
+            target = target();
+
+        var topLeft = DomUtils.getWindowPosition(target);
         return {
             targetRect : {
                 top : topLeft.top,
                     left : topLeft.left,
-                    width : DomUtils.outerWidth(this.target),
-                    height : DomUtils.outerHeight(this.target)
+                    width : DomUtils.outerWidth(target),
+                    height : DomUtils.outerHeight(target)
             },
             contentSize : {
                 width : DomUtils.outerWidth(this.contentWrap),

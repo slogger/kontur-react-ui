@@ -2,8 +2,8 @@
  * Created by ilyin on 12.08.2015.
  */
 
-var FlowPanelManager = require("../FlowPanelManager");
-var DomUtils = require("../FlowPanelManager/domUtils");
+var FloatPanelManager = require("../FloatPanelManager");
+var DomUtils = require("../FloatPanelManager/domUtils");
 var TooltipBox = require("./TooltipBox.jsx");
 
 var offset = 4;
@@ -128,7 +128,7 @@ var calculators  = {
 
 
 function createTooltip(cfg){
-    var panel = FlowPanelManager.createPanel({
+    var panel = FloatPanelManager.createPanel({
         target : cfg.target,
         render : cfg.render,
         pos : cfg.pos || 'top-center', // {top|middle|bottom}-{left|right|center}
@@ -151,10 +151,10 @@ function createTooltip(cfg){
             for (var i = 0; i < posList.length; i++) {
                 var result = calculators[posList[i]].call(this, cfg);
                 var resultIsOk = (
-                    result.left>=0 &&
-                    result.top >=0 &&
+                    result.left >=0 &&
+                    result.top  >=0 &&
                     result.left + cfg.contentSize.width + hPadding*2 < window.innerWidth &&
-                    result.top + cfg.contentSize.height + vPadding*2< window.innerHeight
+                    result.top + cfg.contentSize.height + vPadding*2 < window.innerHeight
                 );
                 if (resultIsOk)
                     return result;

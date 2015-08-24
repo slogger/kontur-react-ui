@@ -1,8 +1,6 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
-
 var Input = require('../Input');
-
 require('./Autocomplete.less');
 var cx = require('../cx')('RTAutocomplete');
 
