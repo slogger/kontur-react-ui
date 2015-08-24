@@ -24,6 +24,31 @@ function updatePanels(){
 
 DomUtils.addEventListener(window, 'scroll', updatePanels);
 DomUtils.addEventListener(window, 'resize', updatePanels);
+DomUtils.ready(function(){
+    DomUtils.addEventListener(document.body, 'click', onBodyClick);
+});
+
+function onBodyClick(e) {
+    if (!isPanel(e.target))
+        _.each(panels, function (p) {
+            if (p.autoHide)
+                p.hide();
+        });
+   //  if (e.target.className.indexOf("floatPanel"))
+};
+function isPanel(el) {
+    while(true){
+        if (!el)
+            return false;
+        if (el.className && el.className.indexOf("autoHidePanel")>=0)
+            return true;
+        el = el.parentNode;
+    }
+}
+
+
+
+
 DomUtils.ready(updatePanels);
 var zIndex = 1000;
 var genZIndex = function(){
@@ -50,6 +75,8 @@ Panel.prototype = {
             this.contentWrap.style.position = '';
             this.panelAppendResult.rendered.refs.childrenContainer.getDOMNode().appendChild(this.contentWrap);
             this.panelAppendResult.wrap.style.zIndex = genZIndex();
+            if (this.autoHide)
+                this.panelAppendResult.wrap.className += "autoHidePanel";
 
         }
         this.animateAppear(this.panelAppendResult.wrap, this.position);
@@ -104,7 +131,7 @@ Panel.prototype = {
     },
 
     renderPanel : function() {
-        return <div ref='childrenContainer'></div>;
+        return <SimplePanel/>;
     },
 
     getPosition : function(cfg){
@@ -124,6 +151,12 @@ Panel.prototype = {
         console.log(panels.length);
     }
 };
+
+var SimplePanel = React.createClass({
+    render : function(){
+        return <div ref='childrenContainer'></div>;
+    }
+});
 
 var createPanel = function(cfg){
     var panel = new Panel(cfg);

@@ -57,9 +57,9 @@ var Autocomplete = React.createClass({
   render() {
     var inputProps = {
       value: this.state.value,
-      onChange: e => this.handleChange(e),
-      onBlur: e => this.handleBlur(e),
-      onKeyDown: e => this.handleKey(e),
+      onChange: e => this._handleChange(e),
+      onBlur: e => this._handleBlur(e),
+      onKeyDown: e => this._handleKey(e),
     };
     return (
       <span className={cx('')}>
