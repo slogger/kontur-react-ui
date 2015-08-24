@@ -22,6 +22,13 @@ var Autocomplete = React.createClass({
     return <Input {...this.props} {...inputProps} ref="input" />;
   },
 
+  componentWillUnmount(){
+    if (this.menu) {
+      this.menu.dispose();
+      this.menu = null;
+    }
+  },
+
   _handleBlur(event) {
     this.__updateMenu({ menuIsVisible : false  });
     if (this.props.onBlur)
@@ -126,8 +133,8 @@ var Autocomplete = React.createClass({
     var input = this.refs.input.refs.input.getDOMNode(); // TODO move to func
     var displayField = this.props.displayField;
     var width = DomUtils.outerWidth(input);
-    var onItemSelect = this._onItemSelect.bind(this);
-    var renderItem = this._renderItem.bind(this)
+    var onItemSelect = this._onItemSelect;
+    var renderItem = this._renderItem;
 
     return FlowPanelManager.createPanel({
       render: function () { return <AutocompleteMenu items={[]} minWidth={width} renderItem={renderItem} onItemSelect={onItemSelect}/>},
@@ -140,6 +147,8 @@ var Autocomplete = React.createClass({
       }
     });
   },
+
+
 
   _triggerOnChange : function(currentValue, items){
      if (!this.props.onChange)

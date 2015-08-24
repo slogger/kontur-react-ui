@@ -23,7 +23,7 @@ var AutocompleteMenu = React.createClass({
         };
 
         return (
-            <div className={cx('menu')}
+            <div className={cx('menu') + " ui-AutocompleteMenu"}
                  width={this.props.minWidth}
                 >
                 <div style={resizerStyles}></div>
@@ -34,7 +34,7 @@ var AutocompleteMenu = React.createClass({
                     });
                     return (
                         <div key={i}
-                             className={rootClass}
+                             className={rootClass + " ui-AutocompleteItem"}
                              onMouseEnter={e => this.setState({selectedIndex: i})}
                              onMouseDown={e => this._onItemClick(e, item)}>
                             {this.props.renderItem(item)}
