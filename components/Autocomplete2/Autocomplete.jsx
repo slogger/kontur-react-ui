@@ -4,12 +4,14 @@ var Input = require('../Input');
 require('./Autocomplete.less');
 var AutocompleteMenu = require('./AutocompleteMenu');
 var FloatPanelManager = require('../FloatPanelManager');
-var DomUtils = require('../FlowPanelManager/domUtils');
+var DomUtils = require('../FloatPanelManager/domUtils');
 var cx = require('../cx')('RTAutocomplete');
 var _ = require('underscore');
 
 var Autocomplete = React.createClass({
-  getInitialState : function(){      return {value : ""};  },
+  getInitialState : function(){
+      return {value: this.props.value || ""};
+  },
 
   render() {
     var inputProps = {
@@ -20,7 +22,6 @@ var Autocomplete = React.createClass({
       onBlur: e => this._handleBlur(e)
     };
     return <Input {...this.props} {...inputProps} ref="input"/>;
-
   },
 
   componentWillUnmount(){
@@ -90,6 +91,8 @@ var Autocomplete = React.createClass({
   },
 
   _getDisplayText : function(item){
+      if (!item)
+        return "";
       if (this.props.getDisplayText)
         return this.props.getDisplayText.call(this, item);
 

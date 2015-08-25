@@ -100,11 +100,12 @@ Panel.prototype = {
     },
 
     animateDisappear : function(panelWrap) {
-        this.panelAppendResult.wrap.style.visibility = 'hidden';
+        this.panelAppendResult.wrap.style.display = 'none';
     },
 
     animateAppear : function(panelWrap, position) {
         panelWrap.style.visibility = '';
+        panelWrap.style.display = '';
         panelWrap.style.left = position.left + 'px';
         panelWrap.style.top = position.top + 'px';
     },

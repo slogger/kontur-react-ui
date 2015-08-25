@@ -88,7 +88,7 @@ var TooltipBox = React.createClass({
           <div className={styles.inner}>
             <div style={pin} ></div>
             <div style={pinInner}  ></div>
-            <div ref='childrenContainer' style={container}>
+            <div ref='childrenContainer' style={container} className="ui-TooltipContainer">
               {this.props.children}
             </div>
           </div>

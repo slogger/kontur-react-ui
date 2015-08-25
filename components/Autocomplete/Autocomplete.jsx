@@ -21,7 +21,7 @@ var Autocomplete = React.createClass({
      * иметь метод cancel, который будет вызван при отмене поиска (пользователь
      * изменил строку поиска, автокомплит потерял фокус).
      * ```
-     * function(pattern) {
+     * f  unction(pattern) {
      *   return service.findAll(pattern);
      * }
      * ```
