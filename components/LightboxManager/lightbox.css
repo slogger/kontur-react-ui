@@ -1,0 +1,34 @@
+.lightbox-document-body {
+    overflow: hidden;
+}
+
+.lightbox-overlay-background {
+    background: #00030a;
+    opacity: .6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+
+.lightbox-container {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow-y: auto;
+}
+.lightbox-content {
+    background: white;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    text-align: left;
+}
+
+.lightbox-spring {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}

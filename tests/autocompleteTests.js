@@ -7,12 +7,14 @@ var assert = require("assert");
 var _ = require("underscore");
 var $ = require("jQuery");
 
-var getTestDomElement = function(){
-    if ($('#c__').length==0)
-        $(document.body).append("<div id='c__' style='position:absolute; top: 300px; left: 200px;'/>");
-    React.unmountComponentAtNode($('#c__')[0]);
-    $('#c__')[0].innerHTML = '';
-    return $('#c__')[0];
+var getTestDomElement = function(num){
+    var id = "__c" + (num||1);
+    var top = 300 + num*100;
+    if ($('#'+id).length==0)
+        $(document.body).append("<div id='" + id + "' style='position:absolute; top: " + top + "px; left: 200px;'/>");
+    React.unmountComponentAtNode($('#'+id)[0]);
+    $('#'+id)[0].innerHTML = '';
+    return $('#'+id)[0];
 };
 
 var source = [
@@ -104,6 +106,33 @@ test("ui-05. input text, check text goes to query", function(){
     TestUtils.Simulate.focus($input[0]);
     TestUtils.Simulate.change($input[0], {target: {value: 'Alalalal'}});
     assert.equal(lastQuery, 'Alalalal');
+});
 
+test("ui-06. test flaots", function(){
+    var Panel = React.createClass({
+         render(){
+             return <div><div>{this.props.children}</div>{new Date().getMilliseconds()}</div>;
+         }
+    });
+
+    var Owner =  React.createClass({
+        getInitialState(){
+            return {header: "324"};
+        },
+        render(){
+            return <div onClick={this.onClick}>MAIN {this.state.header}</div>;
+        },
+        onClick : function(){
+           this.setState({header: + new Date().getMilliseconds()+""});
+            this.panel.setState({header:"sadasd"});
+        },
+        componentDidMount() {
+            var c3 = getTestDomElement(3);
+            this.panel = React.render(<Panel><h1> {new Date().getMilliseconds()}</h1></Panel>, c3);
+        }
+    });
+    var c2 = getTestDomElement(2);
+    var rendered = React.render((<div> <Owner ></Owner></div>),c2);
+    rendered.setState({header:"23423443"});
 });
 
