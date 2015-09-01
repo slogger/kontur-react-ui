@@ -1,7 +1,6 @@
 var React = require('react');
 
 var filterProps = require('../filterProps');
-
 var PropTypes = React.PropTypes;
 
 require('./Input.less');
@@ -22,6 +21,7 @@ const INPUT_PASS_PROPS = {
   onBlur: true,
   onKeyDown: true,
 };
+
 
 var Input = React.createClass({
   propTypes: {

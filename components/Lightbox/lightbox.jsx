@@ -28,10 +28,18 @@ var showLightbox = function(content) {
     var containerWrap = document.createElement("div");
     DomUtils.addClass(containerWrap, "lightbox-container-wrap");
     document.body.appendChild(containerWrap);
-    var newLightbox = React.render(<LightboxWindow/>, containerWrap);
+
+    var newLightbox = React.render(<LightboxWindow />, containerWrap);
     var contentNode = newLightbox.refs.content.getDOMNode();
     var rendered = React.render(content, contentNode);
+    if (rendered.setCloseCallback)
+        rendered.setCloseCallback(()=>closeLightbox(containerWrap));
     return { content : rendered};
+};
+
+function closeLightbox(containerWrap){
+    React.unmountComponentAtNode(containerWrap);
+    containerWrap.parentNode.removeChild(containerWrap);
 };
 
 
@@ -57,9 +65,18 @@ var Footer = React.createClass({
 var Lightbox = React.createClass({
     render() {
         return <div>
-            <a className='lightbox-close' style={{display:this.props.closable ? "" : "none"}}>&times;</a>
+            <a className='lightbox-close' style={{display:this.props.closable ? "" : "none"}} onClick={this._onCancel}>&times;</a>
             {this.props.children}
         </div>;
+    },
+
+    setCloseCallback : function(closeWindow){
+        this.closeWindow = closeWindow;
+    },
+
+    _onCancel(){
+        if (this.props.onCancel)
+            this.props.onCancel();
     }
 });
 
