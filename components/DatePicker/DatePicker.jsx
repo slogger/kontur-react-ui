@@ -68,14 +68,11 @@ var DatePicker = React.createClass({
           value: date,
           textValue: value,
         });
+      } else if (this.props.onChange) {
+        this.props.onChange(date);
       }
-      if (this.props.onChange) {
-        this.props.onChange(date, value);
-      }
-    }
-    else {
-        this.setState({textValue: value});
-        this.props.onChange(null, value);
+    } else {
+      this.setState({textValue: value});
     }
   },
 
@@ -89,8 +86,6 @@ var DatePicker = React.createClass({
     } else {
       this.setState({textValue: formatDate(this.props.value)});
     }
-    if (this.props.onBlur)
-        this.props.onBlur();
   },
 
   handlePickerKey(event) {
@@ -122,8 +117,6 @@ var DatePicker = React.createClass({
       setTimeout(() => this.refs.input.focus(), 0);
     }
   },
-
-  formatDate : formatDate
 });
 
 function formatDate(date) {

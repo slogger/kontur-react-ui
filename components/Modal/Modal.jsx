@@ -1,5 +1,6 @@
 var events = require('add-event-listener');
 var React = require('react/addons');
+
 var Center = require('../Center');
 
 var CSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -93,7 +94,7 @@ Modal.Header = React.createClass({
 
 Modal.Body = React.createClass({
   render() {
-    return <div className={cx('Body')} style={{width:this.props.width}}>{this.props.children}</div>;
+    return <div className={cx('Body')}>{this.props.children}</div>;
   },
 });
 

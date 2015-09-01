@@ -32,8 +32,8 @@ export default class Box extends React.Component {
     let pos = this.state.pos;
     if (!pos) return null;
 
-  let outer = Object.assign({}, pos.pinStyle);
-  let inner = {};
+    let outer = Object.assign({}, pos.pinStyle);
+    let inner = {};
     switch (pos.pinDirection) {
       case 'bottom':
         outer.bottom = -6;
