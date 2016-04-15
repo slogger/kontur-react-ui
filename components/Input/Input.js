@@ -175,6 +175,7 @@ class Input extends React.Component {
       value: this.state.value,
       onChange: (e) => this.handleChange(e),
       style: {},
+      type: this.props.type,
     };
 
     if (this.props.align) {
