@@ -5,17 +5,37 @@ import Button from '../Button';
 import Group from '../Group';
 import Icon from '../Icon';
 import Input from '../Input';
-import Picker from './Picker.jsx';
+import Picker from './Picker';
 
 import styles from './DatePicker.less';
 
 class DatePicker extends React.Component {
   static propTypes = {
+    disabled: PropTypes.bool,
+
     error: PropTypes.bool,
+
+    /**
+     * Минимальный год в селекте для года.
+     */
+    minYear: PropTypes.number,
+
+    /**
+     * Максимальный год в селекте для года.
+     */
+    maxYear: PropTypes.number,
 
     value: PropTypes.instanceOf(Date),
 
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
     onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    minYear: 1900,
+    maxYear: 2100,
+    width: 120,
   };
 
   constructor(props, context) {
@@ -28,6 +48,8 @@ class DatePicker extends React.Component {
       textValue: formatDate(props.value),
       opened: false,
     };
+
+    this._focused = false;
   }
 
   render() {
@@ -35,8 +57,9 @@ class DatePicker extends React.Component {
     if (this.state.opened) {
       picker = (
         <div className={styles.picker} onKeyDown={this.handlePickerKey}>
-          <Picker value={this.state.value} onPick={this.handlePick}
-            onClose={this.handlePickerClose}
+          <Picker value={this.state.value}
+            minYear={this.props.minYear} maxYear={this.props.maxYear}
+            onPick={this.handlePick} onClose={this.handlePickerClose}
           />
         </div>
       );
@@ -46,14 +69,16 @@ class DatePicker extends React.Component {
       [this.props.className || '']: true,
     });
     return (
-      <span className={className}>
-        <Group width={120}>
+      <span className={className} style={{width: this.props.width}}>
+        <Group width="100%">
           <Input ref="input" mainInGroup value={this.state.textValue}
-            maxLength="10" placeholder="дд.мм.гггг"
+            disabled={this.props.disabled} maxLength="10"
             onChange={this.handleChange} onBlur={this.handleBlur}
-            onFocus={this.props.onFocus} error={this.props.error}
+            onFocus={this.handleFocus} error={this.props.error}
           />
-          <Button narrow active={this.state.opened} onClick={this.open}>
+          <Button narrow active={this.state.opened}
+            disabled={this.props.disabled} onClick={this.open}
+          >
             <Icon name="calendar" />
           </Button>
         </Group>
@@ -65,10 +90,11 @@ class DatePicker extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.value !== undefined) {
       const date = checkDate(newProps.value);
-      this.setState({
-        value: date,
-        textValue: formatDate(date),
-      });
+      this.setState({value: date});
+
+      if (!this._focused) {
+        this.setState({textValue: formatDate(date)});
+      }
     }
   }
 
@@ -79,7 +105,17 @@ class DatePicker extends React.Component {
     });
   };
 
+  handleFocus = () => {
+    this._focused = true;
+
+    if (this.props.onFocus) {
+      this.props.onFocus();
+    }
+  };
+
   handleBlur = () => {
+    this._focused = false;
+
     const date = parseDate(this.state.textValue);
     if (this.props.value === undefined) {
       this.setState({
@@ -158,7 +194,17 @@ function parseDate(str) {
   str = str || '';
   const match = str.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/);
   if (match) {
-    return new Date(`${match[3]}-${match[2]}-${match[1]}`);
+    let [, date, month, year] = match;
+    date = date.padLeft(2, '0');
+    month = month.padLeft(2, '0');
+    if (year.length === 2) {
+      if (parseInt(year, 10) < 50) {
+        year = '20' + year;
+      } else {
+        year = '19' + year;
+      }
+    }
+    return checkDate(new Date(`${year}-${month}-${date}`));
   }
   return null;
 }
@@ -171,4 +217,4 @@ function formatNumber(value) {
   return ret;
 }
 
-module.exports = DatePicker;
+export default DatePicker;

@@ -1,3 +1,5 @@
+@import '../../variables.less';
+
 :local {
   .root {
     border: 1px solid #d9d9d9;
@@ -6,8 +8,8 @@
     display: inline-block;
     font-family: inherit;
     font-size: 14px;
-    height: 30px;
-    line-height: 28px;
+    height: 34px;
+    line-height: 32px;
     outline: none;
     overflow: hidden;
     padding: 0 8px;
@@ -17,6 +19,11 @@
     width: 100%;
   }
 
+  .deprecated_oldSize {
+    height: 30px;
+    line-height: 28px;
+  }
+
   .root:focus {
     border-color: #5199db;
     border-radius: 1px;
@@ -24,5 +31,31 @@
     outline: 0;
     position: relative;
     z-index: 2;
+  }
+
+  .warning {
+    border-color: @border-color-warning;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px @border-color-warning;
+    position: relative;
+    z-index: 2;
+  }
+
+  .error {
+    border-color: @border-color-error;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px @border-color-error;
+    position: relative;
+    z-index: 2;
+  }
+
+  :global(.rt-ie8) {
+    .warning {
+      outline: 1px solid @border-color-warning;
+    }
+
+    .error {
+      outline: 1px solid @border-color-error;
+    }
   }
 }

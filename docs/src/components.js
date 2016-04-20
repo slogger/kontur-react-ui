@@ -2,7 +2,7 @@ module.exports = [
   {
     name: 'Autocomplete',
     component: require('ui/Autocomplete'),
-    info: require('!docgen!ui/Autocomplete/Autocomplete.jsx'),
+    info: require('!docgen!ui/Autocomplete/Autocomplete.js'),
     src: require('!raw!./snippets/Autocomplete.jsx'),
   },
   {
@@ -32,7 +32,7 @@ module.exports = [
   {
     name: 'DatePicker',
     component: require('ui/DatePicker'),
-    info: require('!docgen!ui/DatePicker/DatePicker.jsx'),
+    info: require('!docgen!ui/DatePicker/DatePicker.js'),
     src: require('!raw!./snippets/DatePicker.jsx'),
   },
   {
@@ -50,7 +50,7 @@ module.exports = [
   {
     name: 'Gapped',
     component: require('ui/Gapped'),
-    info: require('!docgen!ui/Gapped/Gapped.jsx'),
+    info: require('!docgen!ui/Gapped/Gapped.js'),
     src: require('!raw!./snippets/Gapped.jsx'),
   },
   {
@@ -92,7 +92,7 @@ module.exports = [
   {
     name: 'Modal',
     component: require('ui/Modal'),
-    info: require('!docgen!ui/Modal/Modal.jsx'),
+    info: require('!docgen!ui/Modal/Modal.js'),
     src: require('!raw!./snippets/Modal.jsx'),
   },
   {
@@ -106,18 +106,6 @@ module.exports = [
     component: require('ui/RadioGroup'),
     info: require('!docgen!ui/RadioGroup/RadioGroup.js'),
     src: require('!raw!./snippets/RadioGroup.jsx'),
-  },
-  {
-    name: 'SearchableSelect',
-    component: require('ui/SearchableSelect'),
-    info: require('!docgen!ui/SearchableSelect/SearchableSelect.js'),
-    src: require('!raw!./snippets/SearchableSelect.jsx'),
-  },
-  {
-    name: 'SearchSelect',
-    component: require('ui/SearchSelect'),
-    info: require('!docgen!ui/SearchSelect/SearchSelect.js'),
-    src: require('!raw!./snippets/SearchSelect.jsx'),
   },
   {
     name: 'Select',
@@ -146,7 +134,7 @@ module.exports = [
   {
     name: 'Tooltip',
     component: require('ui/Tooltip'),
-    info: require('!docgen!ui/Tooltip/Tooltip.jsx'),
+    info: require('!docgen!ui/Tooltip/Tooltip.js'),
     src: require('!raw!./snippets/Tooltip.jsx'),
   }
 ];

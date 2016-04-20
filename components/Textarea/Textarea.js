@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import filterProps from '../filterProps';
+import Upgrades from '../../lib/Upgrades';
 
 import '../ensureOldIEClassName';
 import styles from './Textarea.less';
@@ -15,6 +16,9 @@ const PASS_PROPS = {
   rows: true,
   title: true,
   value: true,
+
+  onFocus: true,
+  onBlur: true,
 };
 
 class Textarea extends React.Component {
@@ -44,6 +48,10 @@ class Textarea extends React.Component {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     onChange: PropTypes.func,
+
+    onFocus: PropTypes.func,
+
+    onBlur: PropTypes.func,
   };
 
   static defaultProps = {
@@ -59,6 +67,8 @@ class Textarea extends React.Component {
     props.className = classNames({
       [styles.root]: true,
       [styles.error]: this.props.error,
+
+      [styles.deprecated_oldSize]: !Upgrades.__height34,
     });
     props.style = {};
 

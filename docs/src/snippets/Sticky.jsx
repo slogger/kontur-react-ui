@@ -3,15 +3,30 @@ const style = {
   background: '#f99',
 };
 
+let stop = null;
+
 ReactDOM.render((
   <div>
-    <Sticky side="top">
-      <div style={style}>Small loan of a million dollars</div>
+    <Sticky side="top" getStop={() => stop}>
+      {fixed => (
+        <div style={style}>
+          Small loan of a million dollars
+          {fixed ? ' fixed' : <div>not fixed</div>}
+        </div>
+      )}
     </Sticky>
+    Great
+
     <div style={{height: 1000}} />
-    <Sticky side="bottom" offset={40}>
+    <div ref={(el) => stop = el}
+      style={{borderTop: '1px solid #000'}}
+    />
+    <div style={{height: 1000}} />
+
+    <Sticky side="bottom" getStop={() => stop} offset={20}>
       <div style={style}>Make America Great Again</div>
     </Sticky>
+
     <div style={{height: 100}} />
   </div>
 ), mountNode);

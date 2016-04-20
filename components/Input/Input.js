@@ -4,6 +4,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
 import filterProps from '../filterProps';
+import Upgrades from '../../lib/Upgrades';
 
 import '../ensureOldIEClassName';
 import styles from './Input.less';
@@ -17,6 +18,7 @@ if (typeof window !== 'undefined' && window.document
 const INPUT_PASS_PROPS = {
   autoFocus: true,
   disabled: true,
+  id: true,
   maxLength: true,
   placeholder: true,
   title: true,
@@ -26,9 +28,24 @@ const INPUT_PASS_PROPS = {
   onKeyDown: true,
 };
 
+const SIZE_CLASS_NAMES = {
+  small: styles.deprecated_sizeSmall,
+  default: styles.deprecated_sizeDefault,
+  large: styles.deprecated_sizeLarge,
+};
+
+const PASS_TYPES = {
+  password: true,
+};
+
 class Input extends React.Component {
   static propTypes = {
     disabled: PropTypes.bool,
+
+    /**
+     * ID для использования с элементом label.
+     */
+    id: PropTypes.string,
 
     maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
@@ -43,7 +60,7 @@ class Input extends React.Component {
     align: PropTypes.oneOf(['left', 'center', 'right']),
 
     /**
-     * Высота инпута.
+     * DEPRECATED
      */
     size: PropTypes.oneOf(['small', 'default', 'large']),
 
@@ -53,6 +70,11 @@ class Input extends React.Component {
      * Визуально показать наличие ошибки.
      */
     error: PropTypes.bool,
+
+    /**
+     * Визуально показать наличие предупреждения.
+     */
+    warning: PropTypes.bool,
 
     /**
      * Иконка слева инпута.
@@ -101,9 +123,13 @@ class Input extends React.Component {
      * Показывать маску, даже если ничего не введено.
      */
     alwaysShowMask: PropTypes.bool,
+
+    type: PropTypes.oneOf(['password']),
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    size: 'default',
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -122,15 +148,18 @@ class Input extends React.Component {
         [styles.borderless]: this.props.borderless,
         [styles.disabled]: this.props.disabled,
         [styles.error]: this.props.error,
+        [styles.warning]: this.props.warning,
         [styles.padLeft]: this.props.leftIcon,
         [styles.padRight]: this.props.rightIcon,
-        [styles.sizeSmall]: this.props.size === 'small',
-        [styles.sizeLarge]: this.props.size === 'large',
       }),
       style: {},
     };
     if (this.props.width) {
       labelProps.style.width = this.props.width;
+    }
+
+    if (!Upgrades.__height34) {
+      labelProps.className += ' ' + SIZE_CLASS_NAMES[this.props.size];
     }
 
     var placeholder = null;
@@ -159,6 +188,11 @@ class Input extends React.Component {
       onChange: (e) => this.handleChange(e),
       style: {},
     };
+    
+    const type = this.props.type;
+    if (PASS_TYPES[type]) {
+      inputProps.type = type;
+    }
 
     if (this.props.align) {
       inputProps.style.textAlign = this.props.align;
@@ -168,8 +202,8 @@ class Input extends React.Component {
     if (this.props.mask) {
       input = (
         <MaskedInput {...inputProps} mask={this.props.mask}
-          maskChar={this.props.maskChar || '_'}
-          showEmptyMask={this.props.alwaysShowMask}
+          maskChar={this.props.maskChar === undefined ? '_' : this.props.maskChar}
+          alwaysShowMask={this.props.alwaysShowMask}
         />
       );
     } else {
