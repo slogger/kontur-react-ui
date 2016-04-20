@@ -17,7 +17,7 @@ const PASS_BUTTON_PROPS = {
   error: true,
   use: true,
   warning: true,
-  width: true,
+  disabled: true,
 };
 
 class Select extends React.Component {
@@ -139,6 +139,8 @@ class Select extends React.Component {
       _noPadding: true,
       onClick: this.open_,
       onKeyDown: this.handleKey,
+      disabled: this.props.disabled,
+      width: '100%',
     };
     if (this.state.opened) {
       buttonProps.active = true;
@@ -154,7 +156,7 @@ class Select extends React.Component {
     };
 
     return (
-      <span className={styles.root}>
+      <span className={styles.root} style={{width: this.props.width}}>
         <Button {...buttonProps}>
           <span {...labelProps}>
             <span className={styles.labelText}>{label}</span>
