@@ -89,12 +89,9 @@ class RadioGroup extends React.Component {
         <span key={i} className={styles.item}
           onClick={(e) => this.select_(value)}
         >
-          <div className={styles.radio}>
-            <Radio checked={checked} focused={focused} />
-          </div>
-          <div className={styles.label}>
+          <Radio checked={checked} focused={focused}>
             {this.props.renderItem(value, data)}
-          </div>
+          </Radio>
         </span>
       );
     });

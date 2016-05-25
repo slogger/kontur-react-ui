@@ -4,6 +4,9 @@ ReactDOM.render(
     <Radio checked />
     <Radio focused />
     <Radio focused checked />
+    <Radio disabled />
+    <Radio error />
+    <Radio warning />
   </div>,
   mountNode
 );

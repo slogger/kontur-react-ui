@@ -1,32 +1,98 @@
 @import '../variables.less';
 
 :local {
+
+  :global(.rt-ie8) {
+    .circle {
+      border: 1px solid #b9b9b9;
+      margin: -1px;
+      border-radius: 100%;
+      background: #ebebeb;
+    }
+    .focused {
+      border-color: @border-color-focus;
+    }
+    .error {
+      border-color: @border-color-error;
+    }
+    .warning {
+      border-color: @border-color-warning;
+    }
+  }
+
   .root {
-    background: linear-gradient(#fcfcfc, #ececec);
-    border: 1px solid @border-color-gray-light;
-    border-radius: 50%;
-    box-shadow: inset 0 2px 3px -2px rgba(0, 0, 0, .1);
     display: inline-block;
-    height: 14px;
-    margin-right: 4px;
-    width: 14px;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 20px;
+    position: relative;
+    min-height: 16px;
+    &:hover .circle {
+      background-image: linear-gradient(-180deg, #f2f2f2 0, #dfdfdf 100%);
+    }
+  }
+
+  .circle {
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    text-align: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background-image: linear-gradient(-180deg, #fff 0, #ebebeb 100%);
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .input:disabled + .circle {
+    background: #f2f2f2;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    cursor: default;
   }
 
   .focused {
-    border-color: @border-color-focus;
-    box-shadow: 0 0 0 1px @border-color-focus;
+    box-shadow: inset 0 0 0 1px #fff,
+                0 0 0 2px @border-color-focus;
+  }
+
+  .error {
+    box-shadow: inset 0 0 0 1px #fff,
+                0 0 0 2px #e3071c;
+  }
+
+  .warning {
+    box-shadow: inset 0 0 0 1px #fff,
+                0 0 0 2px #f69c00;
+  }
+
+  .input:active:not(:disabled) + .circle {
+    background: #e1e1e1;
+    box-shadow: 0 -1px 0 0 rgba(0,0,0,0.1),
+                0 0 0 1px rgba(0,0,0,0.2),
+                inset 0 1px 2px 0 rgba(0,0,0,0.1);
   }
 
   .inbox {
-    background: @text-color-default;
-    border-radius: 50%;
+    color: @text-color-default;
+    position: relative;
+    top: -2px;
     display: none;
-    height: 8px;
-    margin: 3px;
-    width: 8px;
   }
 
-  .checked .inbox {
+  .input:checked + .circle .inbox {
     display: block;
   }
 }
