@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import styles from './Radio.less';
-import Icon from 'ui/Icon';
+import Icon from '../Icon';
 
 /**
  * Индикатор для радио-кнопок. Используется в RadioGroup. Может быть
