@@ -159,7 +159,6 @@ class Tooltip extends React.Component {
     this._hotspotDOM = el && ReactDOM.findDOMNode(el);
   };
 
-  // $FlowIssue 850
   _getTarget = () => {
     return this._hotspotDOM;
   };
@@ -174,21 +173,21 @@ class Tooltip extends React.Component {
     }
   };
 
-  // $FlowIssue 850
   _handleMouseLeave = () => {
     this._setOpened(false);
   };
 
-  // $FlowIssue 850
-  _handleClick = event => {
+
+  _handleClick = (event: SyntheticMouseEvent) => {
     if (this._hotspotDOM) {
+      // $FlowIssue 335
       if (!this.state.opened && this._hotspotDOM.contains(event.target)) {
         this._setOpened(true);
       }
     }
   };
 
-  // $FlowIssue 850
+
   _handleBoxClose = () => {
     this._setOpened(false);
   };

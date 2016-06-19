@@ -70,7 +70,6 @@ class Kladr extends React.Component {
   }
 
 
-  // $FlowIssue 850
   _handleOpen = () => {
     this.setState({opened: true});
   };
@@ -80,7 +79,7 @@ class Kladr extends React.Component {
     onChange && onChange(null, value);
   };
 
-  // $FlowIssue 850
+
   _handleClose = () => {
     this.setState({opened: false});
   };

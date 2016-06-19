@@ -199,12 +199,10 @@ class SearchSelect extends React.Component {
     }
   }
 
-  // $FlowIssue 850
   _refFocusable = (el: ?HTMLElement) => {
     this._focusable = el && (el.focus ? el : ReactDOM.findDOMNode(el));
   };
 
-  // $FlowIssue 850
   _handleInputChange = (event: any) => {
     const pattern = event.target.value;
     this.setState({
@@ -214,8 +212,7 @@ class SearchSelect extends React.Component {
     this._fetchList(pattern);
   };
 
-  // $FlowIssue 850
-  _handleInputKey = (event) => {
+  _handleInputKey = (event: SyntheticKeyboardEvent) => {
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
@@ -244,7 +241,6 @@ class SearchSelect extends React.Component {
     }
   };
 
-  // $FlowIssue 850
   _handleInputBlur = () => {
     const {searchText} = this.state;
     const item = this._findItemByValue(searchText);
@@ -256,13 +252,11 @@ class SearchSelect extends React.Component {
     }
   };
 
-  // $FlowIssue 850
   _handleOpenClick = () => {
     this.setState({opened: true});
     this._focus();
   };
 
-  // $FlowIssue 850
   _handleValueClick = () => {
     this.setState({
       opened: true,
@@ -350,7 +344,6 @@ class SearchSelect extends React.Component {
     });
   }
 
-  // $FlowIssue 850
   _focus = () => {
     if (this.focusable_) {
       this.focusable_.focus();
