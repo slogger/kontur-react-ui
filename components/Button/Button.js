@@ -35,6 +35,7 @@ class Button extends React.Component {
 
     loading: PropTypes.bool,
 
+
     /**
      * Вариант использования. Влияет на цвет кнопки.
      */
@@ -44,6 +45,7 @@ class Button extends React.Component {
       'success',
       'danger',
       'pay',
+      'link',
     ]),
 
     narrow: PropTypes.bool,
