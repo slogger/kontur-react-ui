@@ -10,6 +10,12 @@ export function placeName(region: PlaceDescription) {
     case 'край':
       return region.name + ' край';
 
+    case 'Респ':
+      return 'республика ' + region.name;
+
+    case 'г':
+      return 'город ' + region.name;
+
     case 'д':
       return 'деревня ' + region.name;
 
