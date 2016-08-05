@@ -1,3 +1,4 @@
+// @flow
 import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
@@ -24,6 +25,7 @@ class Button extends React.Component {
   static TOP_RIGHT = Corners.TOP_RIGHT;
   static BOTTOM_RIGHT = Corners.BOTTOM_RIGHT;
   static BOTTOM_LEFT = Corners.BOTTOM_LEFT;
+  static __ADAPTER__: any
 
   static propTypes = {
     /**
@@ -91,6 +93,7 @@ class Button extends React.Component {
           ` ${corners & Corners.TOP_RIGHT ? 0 : radius}` +
           ` ${corners & Corners.BOTTOM_RIGHT ? 0 : radius}` +
           ` ${corners & Corners.BOTTOM_LEFT ? 0 : radius}`,
+        textAlign: 'default',
       },
       disabled: this.props.disabled || this.props.loading,
       onClick: this.props.onClick,

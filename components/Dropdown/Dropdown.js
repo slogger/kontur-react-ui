@@ -1,3 +1,4 @@
+// @flow
 import React, {PropTypes} from 'react';
 
 import filterProps from '../filterProps';
@@ -25,6 +26,12 @@ const PASS_PROPS = {
  * Выпадающее меню.
  */
 export default class Dropdown extends React.Component {
+  _select: Select
+
+  static Header: typeof MenuHeader
+  static Separator: typeof MenuSeparator
+  static MenuItem: typeof MenuItem
+
   static propTypes = {
     /**
      * Подпись на кнопке.
@@ -63,10 +70,6 @@ export default class Dropdown extends React.Component {
     onOpen: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const items = React.Children.map(this.props.children, item => item);
 
@@ -81,7 +84,7 @@ export default class Dropdown extends React.Component {
     );
   }
 
-  _refSelect = select => {
+  _refSelect = (select: Select) => {
     this._select = select;
   };
 

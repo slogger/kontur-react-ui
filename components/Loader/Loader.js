@@ -1,14 +1,20 @@
+// @flow
 import React, {PropTypes} from 'react';
 import classnames from 'classnames';
 
 import Spinner from '../Spinner';
 import styles from './Loader.less';
-
+import type {SpinnerType} from '../Spinner';
 /**
  * DRAFT - лоадер-контейнер
  */
 class Loader extends React.Component {
-  _renderSpinner(type, caption) {
+
+  static defaultProps: {
+    type: SpinnerType
+  };
+
+  _renderSpinner(type: SpinnerType, caption: string) {
     return (
       <span className={styles.spinnerContainerCenter}>
         <Spinner type={type} caption={caption} />

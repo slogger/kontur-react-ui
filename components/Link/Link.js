@@ -1,3 +1,4 @@
+// @flow
 import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
@@ -18,6 +19,8 @@ const useClasses = {
  * Все свойства передаются в элемент *<a>*.
  */
 class Link extends React.Component {
+  static __ADAPTER__: any
+
   static propTypes = {
     disabled: PropTypes.bool,
 
@@ -56,7 +59,7 @@ class Link extends React.Component {
       arrow = <span className={styles.arrow} />;
     }
 
-    const props = {
+    const props: {[id: string]: any} = {
       className: classNames({
         [styles.root]: true,
         [useClasses[use]]: true,
@@ -80,7 +83,7 @@ class Link extends React.Component {
     );
   }
 
-  _handleClick = event => {
+  _handleClick = (event: SyntheticEvent) => {
     if (this.props.onClick && !this.props.disabled) {
       this.props.onClick.call(null, event);
     }

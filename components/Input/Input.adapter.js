@@ -8,6 +8,7 @@ const InputAdapter = {
   },
 
   setValue(inst: Input, value: string) {
+    // $FlowIssue test event
     inst.handleChange({target: {value}});
   },
 };

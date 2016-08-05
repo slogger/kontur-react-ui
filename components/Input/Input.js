@@ -1,3 +1,4 @@
+// @flow
 import classNames from 'classnames';
 import MaskedInput from 'react-input-mask';
 import React, {PropTypes} from 'react';
@@ -42,9 +43,46 @@ const SIZE_CLASS_NAMES = {
 
 const PASS_TYPES = {
   password: true,
+  text: true,
 };
 
+type InputEvent = SyntheticKeyboardEvent & {target: HTMLInputElement}
+
+type Props = {
+  align?: 'left' | 'center' | 'right',
+  alwaysShowMask?: boolean,
+  borderless?: boolean,
+  defaultValue?: string | number,
+  disabled?: boolean,
+  error?: boolean,
+  id?: string,
+  leftIcon?: any,
+  mask?: string,
+  maskChar?: string,
+  maxLength?: string | number,
+  placeholder?: string,
+  rightIcon?: any,
+  size: 'small' | 'default' | 'large',
+  title?: string,
+  type?: 'password' | 'text',
+  value: string,
+  warning?: boolean,
+  width?: number | string,
+  onBlur?: (e: InputEvent) => any,
+  onChange?: (e: InputEvent) => any,
+  onCopy?: (e: InputEvent) => any,
+  onCut?: (e: InputEvent) => any,
+  onFocus?: (e: InputEvent) => any,
+  onInput?: (e: InputEvent) => any,
+  onKeyDown?: (e: InputEvent) => any,
+  onKeyPress?: (e: InputEvent) => any,
+  onKeyUp?: (e: InputEvent) => any,
+  onPaste?: (e: InputEvent) => any,
+}
+
 class Input extends React.Component {
+  static __ADAPTER__: any
+
   static propTypes = {
     align: PropTypes.oneOf(['left', 'center', 'right']),
 
@@ -58,7 +96,7 @@ class Input extends React.Component {
      */
     borderless: PropTypes.bool,
 
-    defaultValue: PropTypes.any,
+    defaultValue: PropTypes.string,
 
     disabled: PropTypes.bool,
 
@@ -151,12 +189,19 @@ class Input extends React.Component {
     size: 'default',
   };
 
-  constructor(props, context) {
+  props: Props;
+
+  state: {
+    value: ?string | ?number,
+    polyfillPlaceholder?: boolean
+  }
+
+  constructor(props: Props, context: any) {
     super(props, context);
 
     this.state = {
-      value: props.value !== undefined ? props.value
-          : (props.mask ? null : props.defaultValue),
+      value: props.value !== undefined ? props.value :
+             props.mask ? null : props.defaultValue,
     };
   }
 
@@ -178,7 +223,10 @@ class Input extends React.Component {
     }
 
     if (!Upgrades.isHeight34Enabled()) {
-      labelProps.className += ' ' + SIZE_CLASS_NAMES[this.props.size];
+      const sizeClassName = SIZE_CLASS_NAMES[this.props.size];
+      if (sizeClassName) {
+        labelProps.className += ' ' + sizeClassName;
+      }
     }
 
     var placeholder = null;
@@ -212,7 +260,7 @@ class Input extends React.Component {
     };
 
     const type = this.props.type;
-    if (PASS_TYPES[type]) {
+    if (type && PASS_TYPES[type]) {
       inputProps.type = type;
     }
 
@@ -250,7 +298,7 @@ class Input extends React.Component {
     }
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props: Props) {
     if (props.value !== undefined) {
       this.setState({value: props.value});
     }
@@ -266,7 +314,7 @@ class Input extends React.Component {
   /**
    * @api
    */
-  setSelectionRange(start, end) {
+  setSelectionRange(start: number, end: number) {
     const input = ReactDOM.findDOMNode(this).querySelector('input');
     if (input.setSelectionRange) {
       input.focus();
@@ -280,7 +328,7 @@ class Input extends React.Component {
     }
   }
 
-  handleChange(event) {
+  handleChange(event: InputEvent) {
     if (this.props.value === undefined) {
       this.setState({value: event.target.value});
     }

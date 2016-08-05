@@ -1,3 +1,4 @@
+// @flow
 import classnames from 'classnames';
 import React, {PropTypes} from 'react';
 
@@ -7,10 +8,15 @@ import {types, sizeMaps, svgAnimateSupport} from './settings';
 
 const hasSvgAnimationSupport = svgAnimateSupport();
 
+export type SpinnerType = 'mini' | 'normal' | 'big'
+
 /**
  * DRAFT - инлайн-лоадер
  */
 class Spinner extends React.Component {
+
+  static Types: SpinnerType;
+
   static propTypes = {
     /**
      * Текст рядом с мини-лоадером.
@@ -34,11 +40,7 @@ class Spinner extends React.Component {
     caption: 'Загрузка',
   };
 
-  constructor(props) {
-    super(props);
-  }
-
-  _renderCloud = (type) => {
+  _renderCloud = (type: SpinnerType) => {
     const params = sizeMaps[type];
 
     const svgPath = `M32.0297086,9.1495774 L31.5978628,8.5870774 C29.3570968,
@@ -71,7 +73,7 @@ class Spinner extends React.Component {
     );
   };
 
-  _renderCircle = (type) => {
+  _renderCircle = (type: SpinnerType) => {
     const params = sizeMaps[type];
 
     return (
@@ -89,7 +91,7 @@ class Spinner extends React.Component {
     );
   };
 
-  _renderSpinner = (type) => {
+  _renderSpinner = (type: SpinnerType) => {
     if (type === types.mini) {
       return this._renderCircle(type);
     }
@@ -97,7 +99,7 @@ class Spinner extends React.Component {
     return this._renderCloud(type);
   };
 
-  _renderCaption = (type, caption) => {
+  _renderCaption = (type: SpinnerType, caption: string) => {
     const spanClassName = classnames({
       [styles.captionRight]: type === types.mini,
       [styles.captionBottom]: type !== types.mini,

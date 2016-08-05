@@ -1,3 +1,4 @@
+// @flow
 import classNames from 'classnames';
 import events from 'add-event-listener';
 import {EventEmitter} from 'fbemitter';

@@ -1,3 +1,4 @@
+// @flow
 import React, {PropTypes} from 'react';
 
 import Button from '../Button';
@@ -6,6 +7,9 @@ import Icon from '../Icon';
 import Input from '../Input';
 
 class FxInput extends React.Component {
+  _input: Input;
+  static __ADAPTER__: any;
+
   static propTypes = {
     auto: PropTypes.bool,
   };
@@ -13,8 +17,6 @@ class FxInput extends React.Component {
   static defaultProps = {
     width: 250,
   };
-
-  _input = null;
 
   render() {
     const {width} = this.props;
@@ -45,7 +47,7 @@ class FxInput extends React.Component {
     );
   }
 
-  _refInput = input => {
+  _refInput = (input: Input) => {
     this._input = input;
   };
 }

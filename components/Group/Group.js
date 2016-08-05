@@ -1,3 +1,4 @@
+// @flow
 import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
@@ -55,7 +56,7 @@ class Group extends React.Component {
             corners |= Corners.TOP_RIGHT | Corners.BOTTOM_RIGHT;
           }
 
-          const childProps = {corners};
+          const childProps: {[id: string]: any} = {corners};
           if (child.props.mainInGroup) {
             childProps.width = '100%';
           }
