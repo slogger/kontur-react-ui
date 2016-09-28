@@ -204,8 +204,17 @@ class Header extends React.Component {
 }
 
 class Body extends React.Component {
+  static propTypes = {
+    noPadding: PropTypes.bool,
+  }
+  
   render() {
-    return <div className={styles.body}>{this.props.children}</div>;
+    var names = classNames({
+      [styles.body]: true,
+      [styles.noPadding]: this.props.noPadding,
+    });    
+    
+    return <div className={classNames(names)}>{this.props.children}</div>;
   }
 }
 
