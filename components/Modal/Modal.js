@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
 import addClass from '../../lib/dom/addClass';
-import getScrollbarWidth from '../../lib/dom/getScrollbarWidth';
+import measureScrollWidth from '../../lib/dom/measureScrollWidth';
 import getComputedStyle from '../../lib/dom/getComputedStyle';
 import Center from '../Center';
 import LayoutEvents from '../../lib/LayoutEvents';
@@ -162,7 +162,7 @@ class Modal extends React.Component {
   }
 
   _handleWindowResize = () => {
-    const scrollbarWidth = getScrollbarWidth();
+    const scrollbarWidth = measureScrollWidth();
     document.documentElement.style.marginRight = prevMarginRight;
     removeClass(document.documentElement, styles.bodyClass);
     const marginRight = parseFloat(
