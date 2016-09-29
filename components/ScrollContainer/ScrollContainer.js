@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import LayoutEvents from '../../lib/LayoutEvents';
-import measureScrollWidth from '../../lib/dom/measureScrollWidth';
+import getScrollWidth from '../../lib/dom/getScrollWidth';
 
 import styles from './ScrollContainer.less';
 
@@ -62,7 +62,7 @@ export default class ScrollContainer extends React.Component {
     }
 
     const innerStyle = {
-      marginRight: -(PADDING_RIGHT + measureScrollWidth()),
+      marginRight: -(PADDING_RIGHT + getScrollWidth()),
       maxHeight: this.props.maxHeight,
       paddingRight: PADDING_RIGHT,
     };
