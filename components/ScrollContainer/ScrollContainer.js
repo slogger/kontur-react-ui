@@ -62,7 +62,7 @@ export default class ScrollContainer extends React.Component {
     }
 
     const innerStyle = {
-      marginRight: -(PADDING_RIGHT + measureScrollWidth),
+      marginRight: -(PADDING_RIGHT + measureScrollWidth()),
       maxHeight: this.props.maxHeight,
       paddingRight: PADDING_RIGHT,
     };
