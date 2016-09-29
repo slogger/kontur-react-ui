@@ -32,4 +32,30 @@ describe('DatePicker-adapter', () => {
 
     wrapper.unmount();
   });
+
+  it('getStringValue', () => {
+    const date = '2016-09-29T18:31:42';
+    const wrapper = mount(<div><DatePicker tid="a" value={date} /></div>);
+    const adapter = getAdapter(findOne('a'));
+
+    expect(adapter.getStringValue()).toBe(date);
+
+    wrapper.unmount();
+  });
+
+  it('setStringValue', () => {
+    const onChange = jest.fn();
+    const wrapper = mount(
+      <div><DatePicker tid="a" value={null} onChange={onChange} /></div>
+    );
+    const adapter = getAdapter(findOne('a'));
+
+    const date = '2016-09-29T18:31:42';
+    adapter.setStringValue(date);
+    expect(onChange.mock.calls.length).toBe(1);
+    expect(onChange.mock.calls[0][0].target.value).toBe(date);
+    expect(onChange.mock.calls[0][1]).toBe(date);
+
+    wrapper.unmount();
+  });
 });
