@@ -171,9 +171,9 @@ class Modal extends React.Component {
     }
   };
 
-  _handleClose = () => {
+  _handleClose = (e) => {
     if (this.props.onClose) {
-      this.props.onClose();
+      this.props.onClose(e);
     }
   };
 
@@ -221,12 +221,14 @@ class Body extends React.Component {
 class Footer extends React.Component {
   static propTypes = {
     panel: PropTypes.bool,
+    noPadding: PropTypes.bool
   }
 
   render() {
     var names = classNames({
       [styles.footer]: true,
       [styles.panel]: this.props.panel,
+      [styles.noPadding]: this.props.noPadding
     });
 
     return (
