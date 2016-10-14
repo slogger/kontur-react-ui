@@ -24,6 +24,16 @@
   .selected {
     background: @dropdown-menu-selected-bg;
   }
+  
+  .v2.hover {
+    background: @dropdown-menu-selected-bg;
+    color: inherit !important;
+  }
+
+  .v2.selected {
+    background: @dropdown-menu-hover-bg;
+    color: @text-color-invert !important; // To override `a:hover`.
+  }
 
   .disabled {
     background: transparent;

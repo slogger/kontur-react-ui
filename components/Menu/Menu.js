@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import isActiveElement from './isActiveElement';
+import MenuItem from '../MenuItem/MenuItem';
 import ScrollContainer from '../ScrollContainer/ScrollContainer';
 
 import styles from './Menu.less';
@@ -38,6 +39,13 @@ export default class Menu extends React.Component {
           {React.Children.map(this.props.children, (child, index) => {
             if (isActiveElement(child)) {
               const highlight = this.state.highlightedIndex === index;
+              const state =
+                (
+                  highlight &&
+                  (child.props.state !== 'selected' || !MenuItem.V2_EXPERIMENT)
+                ) ?
+                  'hover' :
+                  child.props.state;
 
               let ref = child.ref;
               if (highlight) {
@@ -46,7 +54,7 @@ export default class Menu extends React.Component {
 
               return React.cloneElement(child, {
                 ref,
-                state: highlight ? 'hover' : child.props.state,
+                state,
                 onClick: this._select.bind(this, index, false),
                 onMouseEnter: this._highlightItem.bind(this, index),
                 onMouseLeave: this._unhighlight,

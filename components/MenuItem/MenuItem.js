@@ -13,6 +13,8 @@ export type MenuItemState = null | 'hover' | 'selected';
 export default class MenuItem extends React.Component {
   static __MENU_ITEM__ = true;
 
+  static V2_EXPERIMENT = false;
+
   static propTypes = {
     alkoLink: PropTypes.bool,
 
@@ -60,6 +62,7 @@ export default class MenuItem extends React.Component {
     const hover = state === 'hover' && !disabled;
     const className = classNames({
       [styles.root]: true,
+      [styles.v2]: MenuItem.V2_EXPERIMENT,
       [styles.disabled]: disabled,
       [styles.hover]: hover,
       [styles.loose]: loose,
