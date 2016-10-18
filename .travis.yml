@@ -7,7 +7,8 @@ script:
 before_deploy:
 - git log -1 --pretty=%an
 - "! git log -1 --pretty=%an | grep -q 'Travis CI'"
-- openssl aes-256-cbc -k "$travis_key_password" -in travis-deploy-key.enc -out travis-deploy-key -d
+- openssl aes-256-cbc -k "$travis_key_password" -in travis-deploy-key.enc -out travis-deploy-key
+  -d
 - chmod 600 travis-deploy-key
 - eval `ssh-agent -s`
 - ssh-add travis-deploy-key
@@ -24,4 +25,4 @@ deploy:
     branch: npm-auto-publish
 env:
   global:
-    secure: tYppEhEwziEPY+NUHpMsED9BEb411EZSlzX/WduN4bXIDjLLkklrGtYvgLKwIDZrgOwjwuxpsiBjenETSCo3W0zff9dt+nqWWRG1OdqiRdocYTaUktZqrXjnCE0oSxpucmVCDI2bp11/HKEeudRerCzfheNvZLko094sipRdvpacLGrifmAoH5YTdQbPf9L36lqSOPbPEmBXLnKtbXmCPFTSwNe5qYn4DgT8iiS/N8LYBEI2wsRn1G5B1ARZC55fQuFjTWtbKf/vvlY4j+oAHWkdRtbb0cKvcj7IWMftYh0Ubi7JDXncMInwmTgE1gdpx+F19qpuJA5G4+NTaoZEwsyKTaT9RfnEXAFkM125Snd6Wjai+eQUiy4xGnSHIUUNolw4jclkMDgMY6j/H5kWT9uwEdaONcuP/Nm1IRyXMi5dU+DSDAav/2XgOkomLJvyMdUi+d5XJ6fJkNfQJJr+b+hbofBqfsZT5zoUwHRH2wkcUMqcs0BrtcDPCwY8cdGBa3CD+Gsy2R9IK1tbgf/njOtIOQZ++qfUij1+LJcsFPab+FnE9hCNjinMjwuNrvqXcwr+DPrMSkYY6keFqmOlcfNTP+Oh5CKNsw8m2/YuRS2BDusVKpbNr80z5pe/9RMkFJCG25/u76Daf1VaQuTukRicYUZ8D3h8iAxbwyqA7HM=
+  - secure: EjvvpIg+5Hc+Jlj0HhhqQ8bL6XuqgXuYWy05Xvd6KKgmRQH4YuMsLUqDcje3TdL2lfRg6Ef2PT4xyjrbTxPTF9UVIECiX4c+vGvLrND/EkZYzh/XRGpCWHPocORfQVMpfZgSQCesZcMI4QctgiYI9GzXiRmjNyDPUlrKpj+IlkJQmp0QFYPNwI4tVPp5g//BKOrHJqTzP/lh5Uq+zB22HLLWE0BQIdh3tcAjhuK1uSqo7C34ENiyW+1hCyxUZqKZ+k+/9Uadas+DQMEHsPGZ7a48Ut6ih84+pOM54pfDVsX6khJZVLSp7r/m4g45+oIpkHtymmywf/DXEQjxNVcUF4pWoTF+q7R+7OCHbFll98KI3UwBOinObPYwpUlyXh3Um7CCvUsE11t/R7o6MxGQGgeah+H+GnBJtJ+MV7uTKf+6RPvIfaj+4dOibmZDIPwkLeF3fsx0Mlz2OTivV7OfMKlURjX9Rre8uBV6pwBE+j0mVXy1rIKhX++5Lqi7RfBjpHmjFj3eiWMy/oqjCXW9X8xsI3qfmHKhP5R3gZNOKY2XWkGhFZ0179odqEmaMObHUiLNuL7YCZef3WcC0ZKHZ5SPKZ+DBVlp8sm54OUnVFACdnmwneidHzKS4CJ69vviU1HgZrBbafFUAdqsnfpF4B4mnJKxpQUeJvWK5AF4eYY=
