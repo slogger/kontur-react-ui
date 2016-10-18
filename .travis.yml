@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '5'
 install: npm install
-scripts:
+script:
 - true
 before_deploy:
 - git log -1 --pretty=%an
