@@ -14,7 +14,7 @@ before_deploy:
 - git config --global user.name "Travis CI"
 - git config --global user.email "retail-ui-publish-bot@skbkontur.ru"
 - npm version patch
-- git push origin npm-auto-publish
+- git push --follow-tags origin npm-auto-publish
 deploy:
   provider: npm
   email: tihonov.ea@gmail.com
