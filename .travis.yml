@@ -6,7 +6,7 @@ script:
 - true
 before_deploy:
 - git log -1 --pretty=%an
-- ! git log -1 --pretty=%an | grep -q 'Travis CI'
+- "! git log -1 --pretty=%an | grep -q 'Travis CI'"
 - openssl aes-256-cbc -k "$travis_key_password" -in travis-deploy-key.enc -out travis-deploy-key -d
 - chmod 600 travis-deploy-key
 - eval `ssh-agent -s`
