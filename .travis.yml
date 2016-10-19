@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - '5'
-install: npm install
+install: true
 script:
 - true
 before_deploy:
@@ -15,6 +15,7 @@ before_deploy:
 - git config --global user.name "Travis CI"
 - git config --global user.email "retail-ui-publish-bot@skbkontur.ru"
 - npm version patch
+- git status
 - git push --follow-tags git@github.com:skbkontur/retail-ui.git npm-auto-publish
 deploy:
   provider: npm
