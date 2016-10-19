@@ -16,7 +16,7 @@ before_deploy:
 - git config --global user.email "retail-ui-publish-bot@skbkontur.ru"
 - npm version patch
 - git status
-- git push --follow-tags git@github.com:skbkontur/retail-ui.git npm-auto-publish
+- git push --follow-tags git@github.com:skbkontur/retail-ui.git HEAD:npm-auto-publish
 deploy:
   provider: npm
   email: tihonov.ea@gmail.com
