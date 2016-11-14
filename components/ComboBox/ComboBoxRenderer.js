@@ -258,7 +258,7 @@ class ComboBoxRenderer extends React.Component {
           >
             {state => this.props.renderItem(value, info, state)}
           </MenuItem>
-        );
+      );
     });
   }
 
