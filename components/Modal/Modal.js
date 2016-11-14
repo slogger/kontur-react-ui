@@ -195,9 +195,9 @@ class Modal extends React.Component {
     }
   };
 
-  _handleClose = () => {
+  _handleClose = (e) => {
     if (this.props.onClose) {
-      this.props.onClose();
+      this.props.onClose(e);
     }
   };
 
@@ -228,20 +228,31 @@ class Header extends React.Component {
 }
 
 class Body extends React.Component {
+  static propTypes = {
+    noPadding: PropTypes.bool,
+  }
+  
   render() {
-    return <div className={styles.body}>{this.props.children}</div>;
+    var names = classNames({
+      [styles.body]: true,
+      [styles.noPadding]: this.props.noPadding,
+    });    
+    
+    return <div className={classNames(names)}>{this.props.children}</div>;
   }
 }
 
 class Footer extends React.Component {
   static propTypes = {
     panel: PropTypes.bool,
+    noPadding: PropTypes.bool
   }
 
   render() {
     var names = classNames({
       [styles.footer]: true,
       [styles.panel]: this.props.panel,
+      [styles.noPadding]: this.props.noPadding
     });
 
     return (

@@ -56,7 +56,7 @@ class Checkbox extends React.Component {
     });
 
     return (
-      <label className={rootClass} onMouseDown={this.handleActivate}>
+      <label className={rootClass} onClick={this.stopClick} onMouseDown={this.handleActivate}>
         <input type="checkbox" className={styles.input}
           checked={this.props.checked}
           disabled={this.props.disabled}
@@ -64,11 +64,15 @@ class Checkbox extends React.Component {
           onBlur={this.handleBlur}
         />
         <span className={styles.box}>
-          <div className={styles.ok}><Icon name="ok" /></div>
+          <div className={styles.ok}><Icon name="ok" color="#333" size={14} /></div>
         </span>
         <span className={styles.caption}>{this.props.children}</span>
       </label>
     );
+  }
+
+  stopClick = event => {
+    event.stopPropagation();
   }
 
   handleActivate = (event: SyntheticMouseEvent) => {
